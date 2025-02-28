@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SHOURYANGA</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+            background: linear-gradient(45deg, #1a1a1a, #2c2c2c);
+            font-family: Arial, sans-serif;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container {
+            max-width: 800px;
+            width: 100%;
+            text-align: center;
+        }
+
+        #loginForm {
+            background: rgba(0, 0, 0, 0.5);
+            padding: 30px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        input {
+            padding: 12px 20px;
+            margin: 10px 0;
+            width: 80%;
+            max-width: 300px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        button {
+            padding: 12px 30px;
+            background: #ff4444;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background 0.3s;
+        }
+
+        button:hover {
+            background: #ff2222;
+        }
+
+        #slideshow {
+            display: none;
+            max-width: 800px;
+            height: 500px;
+            margin: 0 auto;
+        }
+
+        #slideshow img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.5);
+        }
+
+        #errorMessage {
+            display: none;
+            color: #ff4444;
+            font-size: 24px;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div id="loginForm">
+            <h2>Enter Your Caste</h2>
+            <input type="text" id="casteInput" placeholder="Type here...">
+            <br>
+            <button onclick="verifyCaste()">Submit</button>
+        </div>
+
+        <div id="slideshow"></div>
+        <div id="errorMessage">Sorry, this website is not for you.</div>
+    </div>
+
+    <script>
+        const images = [
+            // Replace these with your image URLs
+            'images/1.webp'
+            
+            
+            
+         
+        ];
+
+        let currentImage = 0;
+        let slideInterval;
+
+        function verifyCaste() {
+            const casteInput = document.getElementById('casteInput').value.toUpperCase();
+            const loginForm = document.getElementById('loginForm');
+            const slideshow = document.getElementById('slideshow');
+            const errorMessage = document.getElementById('errorMessage');
+
+            if (casteInput === 'SHOURYANGA') {
+                loginForm.style.display = 'none';
+                errorMessage.style.display = 'none';
+                slideshow.style.display = 'block';
+                startSlideshow();
+                playMusic();
+            } else {
+                loginForm.style.display = 'none';
+                slideshow.style.display = 'none';
+                errorMessage.style.display = 'block';
+            }
+        }
+
+        function startSlideshow() {
+            showImage(currentImage);
+            slideInterval = setInterval(() => {
+                currentImage = (currentImage + 1) % images.length;
+                showImage(currentImage);
+            }, 3000);
+        }
+
+        function showImage(index) {
+            const slideshow = document.getElementById('slideshow');
+            slideshow.innerHTML = `<img src="${images[index]}" alt="Slideshow Image ${index + 1}">`;
+        }
+
+        function playMusic() {
+            const audio = new Audio('https://bit.ly/3OdEIOg');
+            audio.loop = true;
+            audio.play().catch(error => {
+                console.log("Audio playback failed:", error);
+            });
+        }
+    </script>
+</body>
+</html>
